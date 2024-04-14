@@ -1,0 +1,51 @@
+<div class="custom-footer">
+  <span>
+    {% if section.settings['footer-text'] != blank %}
+      {{ section.settings['footer-text'] }}
+    {% endif %}
+  </span>
+</div>
+
+<style>
+  .custom-footer {
+    width: 1512px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: #393939;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .custom-footer span {
+    font-family: 'Playfair Display';
+    font-size: 32px;
+    font-weight: 400;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "custom footer",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "footer-text",
+      "default": "Footer text",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "custom footer"
+    }
+  ]
+}
+{% endschema %}
