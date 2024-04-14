@@ -1,0 +1,173 @@
+<div id="collection-wrap">
+  <div id="collection-head">
+    {% if section.settings['collection-heading'] != blank %}
+      <h1>{{ section.settings['collection-heading'] }}</h1>
+    {% endif %}
+    {% if section.settings['collection-description'] != blank %}
+      <h1>{{ section.settings['collection-description'] }}</h1>
+    {% endif %}
+  </div>
+
+  <div id="collection-cards">
+    {% for product in section.settings['custom-collection'].products %}
+      <div class="custom-card">
+        <img
+          src="{{ product.featured_image | image_url }}"
+          alt="{{ product.featured_image.alt }}"
+          widht="362"
+          height="292"
+        >
+
+        <div class="content">
+          <a href="{{ product.url }}">
+            <span class="name">{{ product.title }}</span>
+          </a>
+          <span class="price">{{ product.price | money }}</span>
+        </div>
+
+        <div class="tags">
+          {% for tag in product.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  #collection-head {
+    text-align: center;
+    margin: 30px auto;
+  }
+
+  #collection-head h1 {
+    font-family: 'Playfair Display', 'sans-serif';
+    font-size: 50px;
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+  }
+
+  #collection-head p {
+    font-family: 'Domine', 'sans-serif';
+    font-size: 26px;
+    font-weight: 400;
+    text-align: center;
+    color: rgba(146, 146, 146, 1);
+  }
+
+  #collection-wrap {
+    width: 1220.12px;
+    margin: 100px auto;
+  }
+
+  #collection-cards {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .custom-card {
+    padding: 8px;
+    width: 377.12px;
+    height: auto;
+    border: 1px solid rgba(215, 215, 215, 1);
+    margin: 0 auto;
+    gap: 30px;
+    padding-bottom: 15px;
+  }
+
+  .custom-card a {
+    text-decoration: none;
+    color: #0000;
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  .custom-card .name {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 24px;
+    font-weight: 300;
+    text-align: left;
+    color: #000000;
+  }
+
+  .custom-card .price {
+    font-family: 'Cambay', 'sans-serif';
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+    color: #4ca36f;
+  }
+
+  .custom-card .content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .custom-card img {
+    width: 361.7px;
+    height: 292.17px;
+  }
+
+  .custom-card .tag {
+    font-family: 'Cambay', 'sans-serif';
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 26.06px;
+    text-align: left;
+    background-color: #d8be8c;
+    color: #ffffff;
+    width: 64px;
+    height: 26px;
+    border-radius: 4px;
+    padding: 10px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "custom collection",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "collection-heading",
+      "label": "Heading",
+      "default": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "collection-description",
+      "label": "Description",
+      "default": "<p>Description</p>"
+    },
+    {
+      "type": "collection",
+      "id": "custom-collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products-limit",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 6,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "custom-collection"
+    }
+  ]
+}
+{% endschema %}

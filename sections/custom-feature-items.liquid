@@ -1,0 +1,117 @@
+<div id="feature-section">
+  {% for block in section.blocks %}
+    <div
+      class="feature-card"
+      style="
+        {% if block.settings.feature-image != blank %}
+            background-image: url('{{ block.settings.feature-image | image_url }}')
+        {% endif %}
+      "
+    >
+      {% case block.type %}
+        {% when 'column' %}
+          <h2>{{ block.settings['feature-heading'] }}</h2>
+          <a href="{{ block.settings['feature-url'] }}">
+            <h2>{{ block.settings['feature-text'] }}</h2>
+          </a>
+      {% endcase %}
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  #feature-section {
+    width: 1096px;
+    height: 340px;
+    gap: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 60px auto;
+    text-align: center;
+  }
+
+  .feature-card {
+    width: 340px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    flex-grow: 1;
+    background: rgba(243, 243, 243, 1);
+  }
+
+  .feature-card h2 {
+    font-family: 'Domine', 'sans-serif';
+    font-size: 36px;
+    font-weight: 400;
+  }
+
+  .feature-card a {
+    font-family: 'Cambay', 'sans-serif';
+    font-size: 24px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom feature",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Custom Feature",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "feature-image",
+          "label": "Feature image"
+        },
+        {
+          "type": "richtext",
+          "id": "feature-heading",
+          "label": "Heading",
+          "default": "<h1>Heading</h1>"
+        },
+        {
+          "type": "text",
+          "id": "feature-text",
+          "label": "Text",
+          "default": "<h1>Text</h1>"
+        },
+        {
+          "type": "url",
+          "id": "feature-url",
+          "label": "Link url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "custom feature",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
