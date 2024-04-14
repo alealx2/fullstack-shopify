@@ -1,0 +1,185 @@
+<div id="main-banner">
+  <div class="wrap">
+    <div id="BannerContent">
+      <!-- Banner image -->
+      {% if section.settings.image != blank %}
+        <div class="banner-image">
+          {{ section.settings.image | image_url: width: 384, height: 470 | image_tag: width: 384, height: 470 }}
+        </div>
+      {% endif %}
+
+      <!-- Banner text -->
+      <div id="bannerTxt">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'heading' %}
+              <h1>{{ block.settings['custom-heading'] }}</h1>
+            {% when 'text' %}
+              <p>{{ block.settings['custom-text'] }}</p>
+            {% when 'buttons' %}
+              <a href="{{ block.settings['custom-button-link'] }}">
+                <button id="customButton">
+                  {{ block.settings['custom-button-text'] }}
+                </button>
+              </a>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wrap {
+    padding: 0 150px;
+  }
+
+  #main-banner {
+    width: 1512px;
+    height: 500px;
+    margin: 0 auto;
+    background-color: #d8be8c;
+  }
+
+  #BannerContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  #BannerContent div {
+    flex-grow: 1;
+  }
+
+  .banner-image img {
+    width: 384px;
+    height: 470px;
+    margin-top: 30px;
+  }
+
+  #bannerTxt h1,
+  p,
+  a {
+    margin: 0 !important;
+  }
+
+  #bannerTxt {
+    width: 663px;
+    height: 235px;
+    top: 194px;
+    left: 647px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: 'Playfair Display', 'sans-serif';
+    font-size: 77px;
+    font-weight: 400;
+    line-height: 102.64px;
+    text-align: left;
+  }
+
+  #bannerTxt h1 {
+    font-family: 'Playfair Display', 'sans-serif';
+    font-size: 77px;
+    font-weight: 400;
+    line-height: 102.64px;
+    text-align: left;
+  }
+
+  #bannerTxt p {
+    font-family: 'Cambay', 'sans-serif';
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 45.61px;
+    text-align: left;
+  }
+
+  #bannerTxt button {
+    cursor: pointer;
+    color: #ffffff !important;
+    background: transparent;
+    border: 4px solid #ffffff;
+    text-transform: uppercase;
+    padding: 0.5rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "custom banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "custom-heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "custom-heading",
+          "default": "Heading",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "custom-text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "custom-text",
+          "default": "Text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "custom-button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom-button-text",
+          "default": "Button text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "custom-button-link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "custom banner",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
